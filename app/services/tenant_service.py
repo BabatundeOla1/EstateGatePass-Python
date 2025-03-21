@@ -1,12 +1,13 @@
 from abc import ABC, abstractmethod
 
 from app.dto.request.tenant_login_request import TenantLoginRequest
+from app.dto.request.tenant_register_request import TenantRegisterRequest
 
 
 class TenantServiceInterface(ABC):
 
     @abstractmethod
-    def register_tenant(self, tenant_data: dict):
+    def register_tenant(self, tenant_register_request: TenantRegisterRequest):
         pass
 
     @abstractmethod

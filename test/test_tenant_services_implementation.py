@@ -22,10 +22,12 @@ class TestTenantServices(TestCase):
             'email': 'babatunde@gmail.com',
             'password': '123456'
         }
-        self.tenant_service.register_tenant(tenant_information)
+        tenant_register_request  = TenantMapper.map_to_tenant_register_request(tenant_information)
+        tenant_register_response = self.tenant_service.register_tenant(tenant_register_request)
         tenant_count = self.tenant_service.get_tenant_count()
         self.assertEqual(1, tenant_count)
 
+        self.assertEqual(tenant_register_response.message, "Register Successful")
 
     def test_that_error_is_thrown_when_tenant_wants_to_register_twice(self):
         tenant_information = {
@@ -34,13 +36,15 @@ class TestTenantServices(TestCase):
             'email': 'babatunde@gmail.com',
             'password': '123456'
         }
-        self.tenant_service.register_tenant(tenant_information)
-
+        tenant_register_request = TenantMapper.map_to_tenant_register_request(tenant_information)
+        tenant_register_response = self.tenant_service.register_tenant(tenant_register_request)
         tenant_count = self.tenant_service.get_tenant_count()
         self.assertEqual(1, tenant_count)
+        self.assertEqual(tenant_register_response.message, "Register Successful")
+
 
         with self.assertRaises(TenantAlreadyExistsException):
-            self.tenant_service.register_tenant(tenant_information)
+            self.tenant_service.register_tenant(tenant_register_request)
 
 
     def test_that_tenant_can_login_after_registering(self):
@@ -50,8 +54,8 @@ class TestTenantServices(TestCase):
             'email': 'babatunde@gmail.com',
             'password': '123456'
         }
-        self.tenant_service.register_tenant(tenant_information)
-
+        tenant_register_request = TenantMapper.map_to_tenant_register_request(tenant_information)
+        self.tenant_service.register_tenant(tenant_register_request)
         tenant_count = self.tenant_service.get_tenant_count()
         self.assertEqual(1, tenant_count)
 
@@ -71,8 +75,8 @@ class TestTenantServices(TestCase):
             'email': 'babatunde@gmail.com',
             'password': '123456'
         }
-        self.tenant_service.register_tenant(tenant_information)
-
+        tenant_register_request = TenantMapper.map_to_tenant_register_request(tenant_information)
+        self.tenant_service.register_tenant(tenant_register_request)
         tenant_count = self.tenant_service.get_tenant_count()
         self.assertEqual(1, tenant_count)
 

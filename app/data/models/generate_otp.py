@@ -1,10 +1,11 @@
 from dataclasses import dataclass
+from datetime import datetime
 
 
 @dataclass
 class Generate_otp:
     otp_code: str
-    expiration_time: str
+    expiration_time: datetime
 
     def to_dictionary(self):
         return {

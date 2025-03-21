@@ -14,4 +14,5 @@ class GenerateOTPRepository:
         return self.mongo.db.otp_repositories.find_one({"code": generate_otp_code})
 
     def delete_generated_otp_by_expiration_time(self, expiration_time: datetime):
-        self.mongo.db.otp_repositories.delete_one({"expiration_time": {"$lte": expiration_time}})
+        result = self.mongo.db.otp_repositories.delete_many({"expiration_time": {"$lte": expiration_time}})
+        return result.deleted_count
