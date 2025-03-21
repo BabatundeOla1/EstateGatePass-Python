@@ -14,10 +14,11 @@ class TenantServices(TenantServiceInterface):
     def register_tenant(self, tenant_data: dict):
         existing_tenant = self.tenant_repository.find_tenant_by_email(tenant_data['email'])
 
-        if existing_tenant is None:
+        if existing_tenant is not None:
+            print(f"Existing tenant found: {existing_tenant}")
             raise TenantAlreadyExistsException("Tenant with email {} already exists".format(tenant_data['email']))
 
-        new_tenant = Tenant.from_dictionary(existing_tenant)
+        new_tenant = Tenant.from_dictionary(tenant_data)
         return self.tenant_repository.save_tenant(new_tenant)
 
     def get_tenant_count(self):

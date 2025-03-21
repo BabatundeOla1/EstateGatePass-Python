@@ -10,12 +10,9 @@ from app.services.tenant_services_implementation import TenantServices
 
 class TestTenantServices(TestCase):
 
-
     tenant_repository = TenantRepository(mongo)
     tenant_service: TenantServiceInterface = TenantServices(tenant_repository)
     def setUp(self):
-        tenant_repository = TenantRepository(mongo)
-        tenant_service: TenantServiceInterface = TenantServices(tenant_repository)
         self.tenant_repository.clear()
 
     def test_that_tenant_can_register_successfully(self):
@@ -25,7 +22,6 @@ class TestTenantServices(TestCase):
             'email': 'babatunde@gmail.com',
             'password': '123456'
         }
-
         self.tenant_service.register_tenant(tenant_information)
         tenant_count = self.tenant_service.get_tenant_count()
         self.assertEqual(1, tenant_count)

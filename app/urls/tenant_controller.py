@@ -10,9 +10,10 @@ tenant_service: TenantServiceInterface = TenantServices(tenant_repository)
 
 
 @app.route('/register_tenant', methods=['POST'])
-def register_tenant(self):
+def register_tenant():
+    data = request.get_json()
+
     try:
-        data = request.get_json()
         registered_tenant = tenant_service.register_tenant(data)
 
         return jsonify({
@@ -24,7 +25,7 @@ def register_tenant(self):
         return jsonify({"error": str(error)}), 400
 
     except Exception as e:
-        return jsonify({"error": "An unexpected error occurred. Please try again later."}), 500
+        return jsonify({"error": "An unexpected error occurred."}), 500
 
 
 if __name__ == '__main__':

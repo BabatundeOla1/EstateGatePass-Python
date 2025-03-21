@@ -1,3 +1,3 @@
 class TenantAlreadyExistsException(Exception):
-    def __init__(self, message="Tenant with the given identifier already exists."):
+    def __init__(self, message):
         super().__init__(message)
