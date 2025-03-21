@@ -43,3 +43,23 @@ class TestTenantServices(TestCase):
             self.tenant_service.register_tenant(tenant_information)
 
 
+    def test_that_tenant_can_login_after_registering(self):
+        tenant_information = {
+            'name': 'Babatunde',
+            'room_id': '101',
+            'email': 'babatunde@gmail.com',
+            'password': '123456'
+        }
+        self.tenant_service.register_tenant(tenant_information)
+
+        tenant_count = self.tenant_service.get_tenant_count()
+        self.assertEqual(1, tenant_count)
+
+        tenant_Login_information = {
+            'email': 'babatunde@gmail.com',
+            'password': '123456'
+        }
+        self.tenant_service.tenant_login(tenant_Login_information)
+
+
+
