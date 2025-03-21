@@ -28,6 +28,7 @@ def register_tenant():
     except Exception as e:
         return jsonify({"error": "An unexpected error occurred."}), 500
 
+
 @app.route('/login', methods=['POST'])
 def tenant_login():
     data = request.get_json()
@@ -35,7 +36,12 @@ def tenant_login():
 
     try:
         response = tenant_service.tenant_login(tenant_login_request)
-        return jsonify(response)
+        return jsonify(response.__dict__), 200
+
+    except Exception as error:
+        return jsonify({"error": str(error)}), 400
+
+
 
 
 if __name__ == '__main__':

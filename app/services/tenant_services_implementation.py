@@ -1,11 +1,8 @@
 from flask import request
-
-from app.data.models import tenant
 from app.data.models.tenant import Tenant
 from app.data.repository.tenant_repository import TenantRepository
-from app.dto.request import tenant_login_request
 from app.dto.request.tenant_login_request import TenantLoginRequest
-from app.dto.response.tenant_login_response import TenantLoginResponse
+from app.exceptionHandle.invalid_login_details import InvalidLoginDetailsException
 from app.mapper import tenant_mapper
 from app.services.tenant_service import TenantServiceInterface
 from app.exceptionHandle.tenant_already_exist import TenantAlreadyExistsException
@@ -32,7 +29,7 @@ class TenantServices(TenantServiceInterface):
         if existing_tenant and existing_tenant["password"] == tenant_Login_request.password:
             return tenant_mapper.TenantMapper.map_to_tenant_login_response(existing_tenant)
         else:
-            raise Exception("Invalid password")
+            raise InvalidLoginDetailsException("Invalid password or Tenant does nt exist")
 
 
     def get_tenant_count(self):

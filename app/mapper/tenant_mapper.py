@@ -10,8 +10,11 @@ class TenantMapper:
 
     @staticmethod
     def map_to_tenant_login_response(tenant: 'Tenant') -> 'TenantLoginResponse':
+        if isinstance(tenant, dict):
+            tenant = Tenant.from_dictionary(tenant)
+
         message = "Login Successful"
         return TenantLoginResponse(
             tenant.email,
-            message
+            message = message
         )
