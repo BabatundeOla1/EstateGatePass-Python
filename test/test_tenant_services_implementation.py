@@ -1,7 +1,5 @@
 from unittest import TestCase
-
 from app import mongo
-from app.data.repository import tenant_repository
 from app.data.repository.tenant_repository import TenantRepository
 from app.exceptionHandle.tenant_already_exist import TenantAlreadyExistsException
 from app.exceptionHandle.invalid_login_details import InvalidLoginDetailsException
